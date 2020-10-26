@@ -27,50 +27,29 @@ namespace PDFEditor
             ////PDFEditor.SpireHelper.ActivateMemoryPatching();
 
             //string pdfFileName = "sample.pdf";
-            //string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
 
             ////Console.WriteLine(ExtractTextFormPdf(filePath));
             //ReplaceTextOfPdf(pdfFileName);
 
-            //test(pdfFileName);
+            //------------------------------------------------
 
-            string pdfFileName = "sample1.pdf";
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
-            string outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName.Replace(".", "_fixed."));
+            string pdfFileName = "sample.pdf";
+            string sourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
+            string descFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName.Replace(".", "_fixed."));
 
             PDFEdit pdfObj = new PDFEdit();
-            pdfObj.ReplaceTextInPDF(filePath, outputFilePath, "109", "888");
+            pdfObj.ReplaceTextInPDF(sourceFile, descFile, "申請", "替代");
+
+            string pdfFileName1 = "sample1.pdf";
+            string sourceFile1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName1);
+            string descFile1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName1.Replace(".", "_fixed."));
+
+            PDFEdit pdfObj1 = new PDFEdit();
+            pdfObj1.ReplaceTextInPDF(sourceFile1, descFile1, "政治", "交通");
 
 
             Console.ReadKey();
         }
-
-        public static void test(string pdfFileName)
-        {
-            //String formFile = Server.MapPath("~/") + "source.pdf";
-
-            //String newFile = Server.MapPath("~/") + "sink.pdf";
-
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
-            string outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName.Replace(".", "_fixed."));
-
-            iTextSharpPdf.PdfReader reader = new iTextSharpPdf.PdfReader(filePath);
-
-            iTextSharpPdf.PdfStamper stamper = new iTextSharpPdf.PdfStamper(reader, new FileStream(outputFilePath, FileMode.Create));
-
-            iTextSharpPdf.AcroFields fields = stamper.AcroFields;
-
-            // set form fields
-
-            fields.SetField("{TO}", "申請");
-
-            fields.SetField("{FROM}", "替代");
-
-            stamper.FormFlattening = true;
-
-            stamper.Close();
-        }
-
 
         // using Spire.Pdf 達成替換字功能
         public static void ReplaceTextOfPdf(string pdfFileName)

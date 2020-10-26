@@ -50,21 +50,27 @@ namespace PDFEditor
                             transparentBitmap.MakeTransparent();
                             iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(transparentBitmap, new BaseColor(255, 255, 255));
                             //Sets the position that the image needs to be placed (ie the location of the text to be removed)
-                            image.SetAbsolutePosition(p.Rect.Left, (p.Rect.Top - 8));
+                            image.SetAbsolutePosition(p.Rect.Left, (p.Rect.Top - 15));
                             //Adds the image to the output pdf
                             stamper.GetOverContent(i).AddImage(image, true); // i stands for the page no.
 
                             PdfContentByte cb = stamper.GetOverContent(i);
 
+                            // 中文自型設定------------
+                            int fontStyle = 1; // 設定為粗體
+                            string fontPath = "c:\\windows\\fonts\\KAIU.TTF";
+                            BaseFont bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                            //----------------------------------
+
                             // select the font properties
-                            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            //BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                             cb.SetColorFill(BaseColor.BLACK);
-                            cb.SetFontAndSize(bf, 7);
+                            cb.SetFontAndSize(bf, 14);
 
                             // write the text in the pdf content
                             cb.BeginText();
                             // put the alignment and coordinates here
-                            cb.ShowTextAligned(1, textToAdd, p.Rect.Left + 10, p.Rect.Top - 6, 0);
+                            cb.ShowTextAligned(1, textToAdd, p.Rect.Left + 14, p.Rect.Top - 10, 0);
                             cb.EndText();
                         }
                     }
