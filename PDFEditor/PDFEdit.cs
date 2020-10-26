@@ -57,7 +57,7 @@ namespace PDFEditor
                             PdfContentByte cb = stamper.GetOverContent(i);
 
                             // 中文自型設定------------
-                            int fontStyle = 1; // 設定為粗體
+                            //int fontStyle = 1; // 設定為粗體
                             string fontPath = "c:\\windows\\fonts\\KAIU.TTF";
                             BaseFont bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                             //----------------------------------
