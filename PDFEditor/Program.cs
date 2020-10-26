@@ -20,19 +20,55 @@ namespace PDFEditor
     {
         static void Main(string[] args)
         {
-            /*
-             * 為了刪除 Evaluation Warning : The document was created with Spire.PDF for .NET.字串
-             * 第一次運行的時候運行SpireHelper.cs，修改Spire.License.dll中的密鑰
-             */
-            //PDFEditor.SpireHelper.ActivateMemoryPatching();
+            ///*
+            // * 為了刪除 Evaluation Warning : The document was created with Spire.PDF for .NET.字串
+            // * 第一次運行的時候運行SpireHelper.cs，修改Spire.License.dll中的密鑰
+            // */
+            ////PDFEditor.SpireHelper.ActivateMemoryPatching();
 
-            string pdfFileName = "sample.pdf";
+            //string pdfFileName = "sample.pdf";
+            //string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
+
+            ////Console.WriteLine(ExtractTextFormPdf(filePath));
+            //ReplaceTextOfPdf(pdfFileName);
+
+            //test(pdfFileName);
+
+            string pdfFileName = "sample1.pdf";
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
+            string outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName.Replace(".", "_fixed."));
 
-            //Console.WriteLine(ExtractTextFormPdf(filePath));
-            ReplaceTextOfPdf(pdfFileName);
+            PDFEdit pdfObj = new PDFEdit();
+            pdfObj.ReplaceTextInPDF(filePath, outputFilePath, "109", "888");
+
 
             Console.ReadKey();
+        }
+
+        public static void test(string pdfFileName)
+        {
+            //String formFile = Server.MapPath("~/") + "source.pdf";
+
+            //String newFile = Server.MapPath("~/") + "sink.pdf";
+
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName);
+            string outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pdfFileName.Replace(".", "_fixed."));
+
+            iTextSharpPdf.PdfReader reader = new iTextSharpPdf.PdfReader(filePath);
+
+            iTextSharpPdf.PdfStamper stamper = new iTextSharpPdf.PdfStamper(reader, new FileStream(outputFilePath, FileMode.Create));
+
+            iTextSharpPdf.AcroFields fields = stamper.AcroFields;
+
+            // set form fields
+
+            fields.SetField("{TO}", "申請");
+
+            fields.SetField("{FROM}", "替代");
+
+            stamper.FormFlattening = true;
+
+            stamper.Close();
         }
 
 
